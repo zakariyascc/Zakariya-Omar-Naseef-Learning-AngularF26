@@ -1,0 +1,17 @@
+<h1>{{ title }}</h1>
+<div class="container">
+  @for (weather of weatherList; track weather.id) {
+    <div class="weather-card">
+      <h2>{{weather.city}}</h2>
+      <p><strong>Temperature : </strong> {{weather.temperature}} C</p>
+      <p><strong>Condition : </strong> {{weather.condition}}</p>
+      <p><strong>Humidity :</strong> {{weather.humidity}}%</p>
+      <p><strong>Wind Speed :</strong> {{weather.windSpeed}} Km/h</p>
+      @if (weather.description) {
+        <P><strong>Description : </strong> {{weather.description}}</P>
+      } @else {
+        <p>No Weather description</p>
+      }
+    </div>
+  }
+</div>
