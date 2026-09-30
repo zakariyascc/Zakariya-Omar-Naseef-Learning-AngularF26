@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Weather } from '../../shared/models/weather';
+import { WeatherListItem } from '../../contentListItem/weather-list-item/weather-list-item';
 
 @Component({
-  imports: [],
+  imports: [WeatherListItem],
   selector: 'app-weather-list',
   styleUrl: './weather-list.scss',
   templateUrl: './weather-list.html',
@@ -16,6 +17,7 @@ export class WeatherList {
       condition: 'Sunny',
       humidity: 45,
       windSpeed: 12,
+      hasDescription: true,
       description: 'Clear and sunny weather.',
     },
     {
@@ -25,6 +27,7 @@ export class WeatherList {
       condition: 'Cloudy',
       humidity: 60,
       windSpeed: 15,
+      hasDescription: true,
       description: 'Mostly cloudy throughout the day.',
     },
     {
@@ -34,6 +37,7 @@ export class WeatherList {
       condition: 'Rainy',
       humidity: 75,
       windSpeed: 20,
+      hasDescription: false,
     },
     {
       id: 4,
@@ -42,6 +46,7 @@ export class WeatherList {
       condition: 'Sunny',
       humidity: 50,
       windSpeed: 10,
+      hasDescription: true,
       description: 'Warm with clear skies.',
     },
     {
@@ -51,6 +56,7 @@ export class WeatherList {
       condition: 'Rainy',
       humidity: 80,
       windSpeed: 18,
+      hasDescription: true,
       description: 'Light rain is expected.',
     },
     {
@@ -60,6 +66,13 @@ export class WeatherList {
       condition: 'Cloudy',
       humidity: 70,
       windSpeed: 9,
+      hasDescription: false,
     },
   ];
+  protected toggleDescription(weather: Weather): void {
+    weather.hasDescription = !weather.hasDescription;
+  }
+  onWeatherOpened(weather: Weather): void {
+    console.warn('Opened: ', weather.description);
+  }
 }

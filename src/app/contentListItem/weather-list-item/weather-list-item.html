@@ -1,1 +1,20 @@
-<p>weather-list-item works!</p>
+<div class="weather-card">
+  <h2>{{weather().city}}</h2>
+  <p><strong>Temperature : </strong> {{weather().temperature}} C</p>
+  @switch (weather().condition){
+    @case ('Sunny') {<p><strong>Condition : </strong> Sunny</p>}
+    @case ('Cloudy') {<p><strong>Condition : </strong> Cloudy</p>}
+    @case ('Rainy') {<p><strong>Condition : </strong> Rainy</p>}
+    @default {<p><strong>Condition : </strong> Other</p>}
+  }
+  <p><strong>Humidity :</strong> {{weather().humidity}}% </p>
+  <p><strong>Wind Speed :</strong> {{weather().windSpeed}} Km/h </p>
+  @if (weather().description) {
+    <div (click)="toggle()"><strong>Has Description : yes</strong></div>
+  } @else {
+    <p><strong>Has Description : No</strong></p>
+  }
+  @if (expanded) {
+    <p>{{weather().description}}</p>
+  }
+</div>

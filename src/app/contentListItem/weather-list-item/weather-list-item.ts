@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Weather } from '../../shared/models/weather';
 
 @Component({
@@ -9,4 +9,13 @@ import { Weather } from '../../shared/models/weather';
 })
 export class WeatherListItem {
   weather = input.required<Weather>();
+
+  expanded = false;
+
+  opened = output<Weather>();
+
+  toggle():void{
+    this.expanded = !this.expanded;
+    this.opened.emit(this.weather())
+  }
 }

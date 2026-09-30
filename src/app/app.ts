@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { WeatherList } from './contentList/weather-list/weather-list';
 
 @Component({
-  imports: [RouterOutlet, WeatherList],
+  imports: [WeatherList],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',

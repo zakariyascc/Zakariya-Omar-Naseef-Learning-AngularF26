@@ -5,5 +5,6 @@ export interface Weather {
   condition: string;
   humidity: number;
   windSpeed: number;
+  hasDescription?: boolean;
   description?: string;
 }
