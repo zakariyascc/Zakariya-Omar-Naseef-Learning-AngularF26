@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Weather } from '../../shared/models/weather';
 
 @Component({
   imports: [],
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './weather-list-item.scss',
   templateUrl: './weather-list-item.html',
 })
-export class WeatherListItem {}
+export class WeatherListItem {
+  weather = input.required<Weather>();
+}
