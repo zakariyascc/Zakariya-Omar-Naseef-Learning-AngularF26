@@ -1,1 +1,22 @@
-<p>weather-list works!</p>
+<div class="container">
+  @for (weather of weatherList; track weather.id) {
+    <div class="weather-card">
+      <h2>{{weather.city}}</h2>
+      <p><strong>Temperature : </strong> {{weather.temperature}} C </p>
+      @switch (weather.condition){
+        @case ('Sunny') {<p><strong>Condition : </strong> Sunny </p>}
+        @case ('Cloudy') {<p><strong>Condition : </strong> Cloudy </p>}
+        @case ('Rainy') {<p><strong>Condition : </strong> Rainy </p>}
+        @default {<p><strong>Condition : </strong> Other </p>}
+      }
+      <p><strong>Humidity :</strong> {{weather.humidity}}% </p>
+      <p><strong>Wind Speed :</strong> {{weather.windSpeed}} Km/h </p>
+      @if (weather.description) {
+        <P><strong>Description : </strong> {{weather.description}} </P>
+      } @else {
+        <p>No Weather description</p>
+      }
+    </div>
+  }
+  <div></div>
+</div>
