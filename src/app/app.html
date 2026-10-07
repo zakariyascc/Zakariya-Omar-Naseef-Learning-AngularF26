@@ -1,2 +1,3 @@
 <h1>{{ title }}</h1>
-<app-weather-list />
+<h3>Showing {{weatherCount}} Weather</h3>
+<app-weather-list (weatherCount)="weatherCount = $event"/>

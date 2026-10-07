@@ -1,6 +1,13 @@
-
 <div class="container">
-  @for (weather of weatherList; track weather.id) {
+  @for (
+      weather of weatherList;
+      track weather.id;
+      let count = $count;
+      let first = $first;
+    ) {
+    @if (first){
+      {{sendWeatherCount(count)}}
+    }
     <app-weather-list-item
       [weather]="weather"
       (opened)="onWeatherOpened($event)">

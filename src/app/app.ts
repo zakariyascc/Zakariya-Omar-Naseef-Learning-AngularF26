@@ -10,4 +10,5 @@ import { WeatherList } from './contentList/weather-list/weather-list';
 })
 export class App {
   protected title: string = 'Weather App';
+  protected weatherCount: number = 0;
 }

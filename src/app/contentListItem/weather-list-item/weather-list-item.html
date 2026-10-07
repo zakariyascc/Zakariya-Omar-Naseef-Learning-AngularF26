@@ -1,4 +1,13 @@
-<div class="weather-card">
+<div
+  [class.weather-card-whiteSmoke]= "Math.floor((weather().id - 1) / 2 ) % 2 === 0"
+  [class.weather-card-lightCyan] = "Math.floor((weather().id - 1)/ 2) % 2 !==0" >
+  @if (weather().condition == "Cloudy") {
+    <img [ngSrc]="cloudyDayImage" alt="Cloudy Day" width="100" height="100">
+  } @else if (weather().condition == "Rainy"){
+    <img [ngSrc]="rainyDayImage" alt="Cloudy Day" width="100" height="100">
+  } @else if (weather().condition == "Sunny"){
+    <img [ngSrc]="sunnyDayImage" alt="Cloudy Day" width="100" height="100">
+  }
   <h2>{{weather().city}}</h2>
   <p><strong>Temperature : </strong> {{weather().temperature}} C</p>
   @switch (weather().condition){
@@ -12,7 +21,7 @@
   @if (weather().description) {
     <div (click)="toggle()"><strong>Has Description : yes</strong></div>
   } @else {
-    <p><strong>Has Description : No</strong></p>
+    <div><strong>Has Description : No</strong></div>
   }
   @if (expanded) {
     <p>{{weather().description}}</p>

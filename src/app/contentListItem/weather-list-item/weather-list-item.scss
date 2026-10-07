@@ -3,11 +3,19 @@ h1 {
   margin-bottom: 30px;
   font-size: 36px;
 }
-.weather-card {
+.weather-card-whiteSmoke {
   padding: 20px;
   border-radius: 12px;
   border: 2px solid #ddd;
   background-color: #f5f5f5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.weather-card-lightCyan {
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  background-color: #e6ffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 

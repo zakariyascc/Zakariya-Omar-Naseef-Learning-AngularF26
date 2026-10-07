@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { Weather } from '../../shared/models/weather';
 import { WeatherListItem } from '../../contentListItem/weather-list-item/weather-list-item';
 
@@ -74,5 +74,11 @@ export class WeatherList {
   }
   onWeatherOpened(weather: Weather): void {
     console.warn('Opened: ', weather.description);
+  }
+
+  weatherCount = output<number>()
+
+  sendWeatherCount (count: number) {
+    this.weatherCount.emit(count);
   }
 }
