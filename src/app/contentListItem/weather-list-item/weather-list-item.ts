@@ -24,4 +24,10 @@ export class WeatherListItem {
   sunnyDayImage = 'images/sun.png';
   cloudyDayImage = 'images/cloudy.png';
   rainyDayImage = 'images/rainy-day.png';
+
+  removeWeather = output<number>();
+
+  remove(): void {
+    this.removeWeather.emit(this.weather().id);
+  }
 }

@@ -1,11 +1,37 @@
 <div class="container">
   @for (
-      weather of filteredWeathers();
-      track weather.id;
+    weather of weatherList();
+    track weather.id;
+    let count = $count;
+    let first = $first;
     ) {
+    @if (first) {
+      <h3> {{count}} Weather item Showing</h3>
+      <button (click)="addWeather()">Add Severe Weather Item</button>
+    }
     <app-weather-list-item
       [weather]="weather"
-      (opened)="onWeatherOpened($event)">
+      (opened)="onWeatherOpened($event)"
+      (removeWeather)="removeWeather($event)">
+    </app-weather-list-item>
+  }
+</div>
+<h3>Filter Weather With Description</h3>
+<div class="container">
+  @for (
+      weather of filteredWeathers();
+      track weather.id;
+      let count = $count;
+      let first = $first;
+    ) {
+    @if (first) {
+      <h3> {{count}} Weather item Showing</h3>
+      <button (click)="addWeather()">Add Severe Weather Item</button>
+    }
+    <app-weather-list-item
+      [weather]="weather"
+      (opened)="onWeatherOpened($event)"
+      (removeWeather)="removeWeather($event)">
     </app-weather-list-item>
   }
 </div>

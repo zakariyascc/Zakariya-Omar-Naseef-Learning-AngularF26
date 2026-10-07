@@ -66,11 +66,14 @@ export class WeatherService {
   ]);
 
   weatherList = this.weathers.asReadonly();
+
   readonly weatherCount = computed( () => this.weathers().length);
 
   readonly filterWeather = computed(() =>
     this.weatherList().filter((item) => item.hasDescription)
   );
+
+  readonly filerWeatherCount = computed(() => this.filterWeather.length)
 
   addWeather(newWeather: Weather) {
     this.weathers.update((list) => [...list, newWeather]);
@@ -80,5 +83,9 @@ export class WeatherService {
     effect(() => {
       console.log('WeatherService constructor current item count ' + this.weatherCount);
     });
+  }
+
+  removeWeather(id: number) {
+    this.weathers.update((list) => list.filter((item) => item.id !== id));
   }
 }

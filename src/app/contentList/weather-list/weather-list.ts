@@ -25,4 +25,20 @@ export class WeatherList {
   onWeatherOpened(weather: Weather): void {
     console.warn('Opened: ', weather.description);
   }
+  removeWeather(id: number): void {
+    this.weatherService.removeWeather(id);
+  }
+
+  addWeather() {
+    this.weatherService.addWeather({
+      id: this.weatherList.length + 1,
+      city: 'Calgary',
+      temperature: 19,
+      condition: 'Sunny',
+      humidity: 40,
+      windSpeed: 14,
+      hasDescription: true,
+      description: 'Brisk wind with plenty of sunshine.',
+    });
+  }
 }
