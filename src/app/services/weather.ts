@@ -1,4 +1,4 @@
-import { computed, Service, signal } from '@angular/core';
+import { computed, effect, Service, signal } from '@angular/core';
 import {Weather} from '../shared/models/weather';
 
 @Service()
@@ -66,6 +66,19 @@ export class WeatherService {
   ]);
 
   weatherList = this.weathers.asReadonly();
-  weatherCount = computed( () => this.weathers().length);
+  readonly weatherCount = computed( () => this.weathers().length);
 
+  readonly filterWeather = computed(() =>
+    this.weatherList().filter((item) => item.hasDescription)
+  );
+
+  addWeather(newWeather: Weather) {
+    this.weathers.update((list) => [...list, newWeather]);
+  }
+
+  constructor() {
+    effect(() => {
+      console.log('WeatherService constructor current item count ' + this.weatherCount);
+    });
+  }
 }

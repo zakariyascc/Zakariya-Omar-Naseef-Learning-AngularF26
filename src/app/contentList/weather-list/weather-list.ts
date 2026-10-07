@@ -16,16 +16,13 @@ export class WeatherList {
 
   protected weatherList = this.weatherService.weatherList;
 
+  protected weatherCount = this.weatherService.weatherCount;
+
+  protected filteredWeathers = this.weatherService.filterWeather ;
   protected toggleDescription(weather: Weather): void {
     weather.hasDescription = !weather.hasDescription;
   }
   onWeatherOpened(weather: Weather): void {
     console.warn('Opened: ', weather.description);
-  }
-
-  weatherCount = output<number>()
-
-  sendWeatherCount (count: number) {
-    this.weatherCount.emit(count);
   }
 }
