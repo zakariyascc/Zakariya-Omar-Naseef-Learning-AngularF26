@@ -3,6 +3,7 @@ import { Weather } from '../../shared/models/weather';
 import { WeatherListItem } from '../../contentListItem/weather-list-item/weather-list-item';
 import { inject } from '@angular/core';
 import { WeatherService } from '../../services/weather';
+import { APP_CONFIG } from '../../shared/config/app-config';
 
 @Component({
   imports: [WeatherListItem],
@@ -14,14 +15,12 @@ export class WeatherList {
 
   private weatherService = inject(WeatherService);
 
+  config = inject(APP_CONFIG);
+
   protected weatherList = this.weatherService.weatherList;
 
-  protected weatherCount = this.weatherService.weatherCount;
-
   protected filteredWeathers = this.weatherService.filterWeather ;
-  protected toggleDescription(weather: Weather): void {
-    weather.hasDescription = !weather.hasDescription;
-  }
+
   onWeatherOpened(weather: Weather): void {
     console.warn('Opened: ', weather.description);
   }

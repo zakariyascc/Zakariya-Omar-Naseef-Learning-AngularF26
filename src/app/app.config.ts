@@ -10,8 +10,8 @@ export const appConfig: ApplicationConfig = {
     {
       provide: APP_CONFIG,
       useValue: {
-        apiBaseUrl: "https://api.example.com/",
-        defaultCategory: 'General'
+        apiBaseUrl: "https://api.example.com",
+        defaultCondition: 'all'
       }
     }
   ]

@@ -1,8 +1,11 @@
-import { computed, effect, Service, signal } from '@angular/core';
+import { computed, effect, inject, Service, signal } from '@angular/core';
 import {Weather} from '../shared/models/weather';
-
+import { APP_CONFIG } from '../shared/config/app-config';
 @Service()
 export class WeatherService {
+  private config = inject(APP_CONFIG);
+
+  apiBaseUrl = this.config.apiBaseUrl;
 
   private weathers =  signal<Weather[]>([
     {
@@ -69,11 +72,22 @@ export class WeatherService {
 
   readonly weatherCount = computed( () => this.weathers().length);
 
-  readonly filterWeather = computed(() =>
-    this.weatherList().filter((item) => item.hasDescription)
-  );
+  selectedCondition = signal(this.config.defaultCondition);
 
-  readonly filerWeatherCount = computed(() => this.filterWeather.length)
+
+  readonly filterWeather = computed(() =>
+    {
+      const condition = this.selectedCondition();
+
+      if (condition === 'Sunny') {
+        return this.weatherList().filter((item) => item.condition === this.selectedCondition());
+      }else if (condition === 'Rainy') {
+        return this.weatherList().filter((item) => item.condition === this.selectedCondition());
+      }else if (condition === 'Cloudy') {
+        return this.weatherList().filter((item) => item.condition === this.selectedCondition());
+      }
+      return this.weatherList();
+    });
 
   addWeather(newWeather: Weather) {
     this.weathers.update((list) => [...list, newWeather]);
