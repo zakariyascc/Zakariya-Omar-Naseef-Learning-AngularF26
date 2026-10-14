@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Weather } from '../../shared/models/weather';
+import { Weather } from '../shared/models/weather';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({

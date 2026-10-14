@@ -1,7 +1,6 @@
-<p> placeholder: {{ config.apiBaseUrl }} </p>
 <div class="container">
   @for (
-    weather of filteredWeathers();
+    weather of weatherList();
     track weather.id;
     let count = $count;
     let first = $first;

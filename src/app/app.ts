@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeatherList } from './contentList/weather-list/weather-list';
+import { WeatherList } from './weather-list/weather-list';
 
 @Component({
   imports: [WeatherList],
