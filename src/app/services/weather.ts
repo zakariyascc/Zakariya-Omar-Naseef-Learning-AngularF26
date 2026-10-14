@@ -1,7 +1,9 @@
-import { computed, effect, inject, Service, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, Service, signal } from '@angular/core';
 import {Weather} from '../shared/models/weather';
 import { APP_CONFIG } from '../shared/config/app-config';
-@Service()
+@Injectable({
+  providedIn: 'root'
+})
 export class WeatherService {
   private config = inject(APP_CONFIG);
 
@@ -68,7 +70,7 @@ export class WeatherService {
     },
   ]);
 
-  weatherList = this.weathers.asReadonly();
+  readonly weatherList = this.weathers;
 
   readonly weatherCount = computed( () => this.weathers().length);
 
