@@ -1,0 +1,19 @@
+<div class="weather-card-whiteSmoke">
+  @if (selectedWeather(); as w) {
+    <article class="detail">
+      <h2>{{w.city}}</h2>
+      <p><strong>Temperature : </strong> {{w.temperature}} C</p>
+      <p><strong>Condition : </strong> {{w.condition}}</p>
+      <p><strong>Humidity :</strong> {{w.humidity}}% </p>
+      <p><strong>Wind Speed :</strong> {{w.windSpeed}} Km/h </p>
+      @if (w.description) {
+        <div><strong>Description : {{w.description}}</strong></div>
+      } @else {
+        <div><strong>Description : No Description</strong></div>
+      }
+    </article>
+  } @else {
+    <p><strong> "Weather Not Found" </strong></p>
+  }
+</div>
+
