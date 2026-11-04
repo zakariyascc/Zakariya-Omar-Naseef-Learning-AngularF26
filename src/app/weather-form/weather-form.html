@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="weather-form">
+    <h2> Add New Weather </h2>
+    <form [formGroup]="weatherForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="city">City: </label>
+        <input type="text" name="city" id="city" formControlName="city" placeholder="City Name">
+        @if (weatherForm.controls.city.touched) {
+          @if (weatherForm.controls.city.hasError('required')) {
+            <p class="error"> City Name is required </p>
+          }
+          @if (weatherForm.controls.city.hasError('minlength')) {
+            <p class="error"> City Name is required least 2 character</p>
+          }
+        }
+      </div>
+      <div>
+        <label for="temp">Temperature: </label>
+        <input type="number" name="temp" id="temp" formControlName="temperature" placeholder="Temperature">
+        @if (weatherForm.controls.temperature.touched && weatherForm.controls.temperature.hasError('required')) {
+          <p class="error"> Temperature Required</p>
+        }
+      </div>
+      <div>
+        <label for="con">Condition: </label>
+        <select name="con" id="con" formControlName="condition">
+          <option value="Sunny">Sunny</option>
+          <option value="Cloudy">Cloudy</option>
+          <option value="Rainy">Rainy</option>
+        </select>
+      </div>
+      <div>
+        <label for="hum">Humidity: </label>
+        <input type="number" name="hum" id="hum" formControlName="humidity" placeholder="Humidity in numbers">
+        @if (weatherForm.controls.humidity.touched && weatherForm.controls.humidity.hasError('required')) {
+          <p class="error"> Humidity Required</p>
+        }
+      </div>
+      <div>
+        <label for="wSpeed">Wind Speed: </label>
+        <input type="text" name="wSpeed" id="wSpeed" formControlName="windSpeed" placeholder="Wind Speed in numbers">
+        @if (weatherForm.controls.windSpeed.touched && weatherForm.controls.windSpeed.hasError('required')) {
+          <p class="error"> Wind Speed Required</p>
+        }
+      </div>
+      <div>
+        <label for="des">Description: </label>
+        <textarea type="number" name="hum" id="hum" formControlName="description"></textarea>
+      </div>
+      <button type="submit" [disabled]="weatherForm.invalid">
+        Add Weather
+      </button>
+    </form>
+  </div>
+</div>
