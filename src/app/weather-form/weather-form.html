@@ -25,6 +25,9 @@
         @if (weatherForm.controls.temperature.touched && weatherForm.controls.temperature.hasError('required')) {
           <p class="error"> Temperature Required</p>
         }
+        @if(weatherForm.touched && weatherForm.hasError('tempRangeInvalid')){
+          <p class="error"> Temperature cannot be higher then Humidity</p>
+        }
       </div>
       <div>
         <label for="con">Condition: </label>

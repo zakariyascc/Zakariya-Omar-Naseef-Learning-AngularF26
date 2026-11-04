@@ -33,7 +33,10 @@ export class WeatherForm {
     windSpeed: [10, Validators.required],
     hasDescription: [false],
     description: [''],
-  });
+  },
+    {
+      validators: [CompareTempAndHum()]
+    });
 
   constructor() {
     effect(() => {
@@ -74,4 +77,17 @@ function noWhitespaceValidator(): ValidatorFn {
     const isWhitespace = value.trim().length === 0;
     return isWhitespace ? { whitespace: true } : null;
   };
+}
+
+function CompareTempAndHum(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const temperature: number = control.get('temperature')?.value;
+    const humidity: number = control.get('humidity')?.value;
+    if(!temperature || isNaN(temperature) && !humidity || isNaN(humidity)) {
+      return null;
+    }
+    const isTempRangeInvalid = temperature > humidity;
+    return isTempRangeInvalid ? { tempRangeInvalid : true } : null;
+
+  }
 }
