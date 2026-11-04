@@ -103,4 +103,9 @@ export class WeatherService {
   removeWeather(id: number) {
     this.weathers.update((list) => list.filter((item) => item.id !== id));
   }
+
+  getWeatherById(id: number): Weather | undefined {
+    console.log('Weather Id : ', id);
+    return this.weathers().find((w) => w.id === id);
+  }
 }

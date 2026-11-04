@@ -27,4 +27,5 @@
     <p>{{weather().description}}</p>
   }
   <button type="button" (click)="remove()"> Remove </button>
+  <a [routerLink]="['/weather', weather().id]"> View Details </a>
 </div>

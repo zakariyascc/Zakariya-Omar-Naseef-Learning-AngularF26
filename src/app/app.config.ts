@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { APP_CONFIG } from './shared/config/app-config';
 import { WeatherService } from './services/weather';
@@ -8,7 +8,7 @@ import { MockWeatherService } from './services/mock-weather-service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     {
       provide: WeatherService,
       useClass: WeatherService,
