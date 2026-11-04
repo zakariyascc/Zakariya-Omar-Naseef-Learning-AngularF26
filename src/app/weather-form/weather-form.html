@@ -12,9 +12,10 @@
         @if (weatherForm.controls.city.touched) {
           @if (weatherForm.controls.city.hasError('required')) {
             <p class="error"> City Name is required </p>
-          }
-          @if (weatherForm.controls.city.hasError('minlength')) {
+          } @else if (weatherForm.controls.city.hasError('minlength')) {
             <p class="error"> City Name is required least 2 character</p>
+          } @else if (weatherForm.controls.city.hasError('whitespace')){
+            <p class="error">City name cannot consist only of whitespace.</p>
           }
         }
       </div>

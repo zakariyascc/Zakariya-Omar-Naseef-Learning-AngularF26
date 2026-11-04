@@ -1,5 +1,11 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidatorFn,
+  ReactiveFormsModule, ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { WeatherService } from '../services/weather';
 import { Router } from '@angular/router';
 
@@ -20,7 +26,7 @@ export class WeatherForm {
 
   protected weatherForm = this.formBuilder.nonNullable.group({
     id: this.weatherService.weatherList().length + 1,
-    city: ['', [Validators.required, Validators.minLength(2)]],
+    city: ['', [Validators.required, Validators.minLength(2), noWhitespaceValidator()]],
     temperature: [20, Validators.required],
     condition: ['', Validators.required],
     humidity: [50, Validators.required],
@@ -55,4 +61,17 @@ export class WeatherForm {
     this.weatherForm.reset();
     this.router.navigate(['/weather', newWeather.id])
   }
+
+  protected readonly noWhitespaceValidator = noWhitespaceValidator;
+}
+
+function noWhitespaceValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (!value) {
+      return null;
+    }
+    const isWhitespace = value.trim().length === 0;
+    return isWhitespace ? { whitespace: true } : null;
+  };
 }
