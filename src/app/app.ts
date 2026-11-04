@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { GuardService } from './services/guard';
 
 @Component({
   imports: [RouterOutlet, RouterLink],
@@ -9,4 +10,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class App {
   protected title: string = 'Weather App';
+  protected guardService = inject(GuardService);
+
+  protected toggleGuard(): void {
+    this.guardService.toggleGuard();
+  }
 }

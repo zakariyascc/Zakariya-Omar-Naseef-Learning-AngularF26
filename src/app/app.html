@@ -3,6 +3,9 @@
   <nav class="nav-bar">
     <a routerLink="/weather" >All Weather</a>
     <a routerLink="/add-weather">Add Weather</a>
+    <button type="button" (click)="toggleGuard()" >
+      {{ guardService.guardEnabled() ? 'Unlock Editing' : 'Lock Editing' }}
+    </button>
   </nav>
   <router-outlet/>
 </div>
