@@ -1,6 +1,10 @@
 <div class="container">
   <div class="weather-form">
-    <h2> Add New Weather </h2>
+    @if (isEditMode()) {
+      <h2> Update Weather information</h2>
+    } @else {
+      <h2> Add New Weather </h2>
+    }
     <form [formGroup]="weatherForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="city">City: </label>
@@ -48,7 +52,11 @@
         <textarea type="number" name="hum" id="hum" formControlName="description"></textarea>
       </div>
       <button type="submit" [disabled]="weatherForm.invalid">
-        Add Weather
+        @if (isEditMode()){
+          Update Weather
+        } @else {
+          Add Weather
+        }
       </button>
     </form>
   </div>

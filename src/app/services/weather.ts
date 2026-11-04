@@ -108,4 +108,8 @@ export class WeatherService {
     console.log('Weather Id : ', id);
     return this.weathers().find((w) => w.id === id);
   }
+
+  updateWeather(updatedWeather: Weather): void{
+    this.weatherList.update((item) => item.map((w)=> w.id === updatedWeather.id ? updatedWeather : w));
+  }
 }

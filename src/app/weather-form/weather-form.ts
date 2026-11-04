@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { WeatherService } from '../services/weather';
 import { Router } from '@angular/router';
@@ -14,9 +14,13 @@ export class WeatherForm {
   private weatherService = inject(WeatherService);
   private router = inject(Router);
 
+  id = input<string>();
+
+  protected isEditMode = computed(() => this.id() !== undefined);
+
   protected weatherForm = this.formBuilder.nonNullable.group({
     id: this.weatherService.weatherList().length + 1,
-    city: ['', Validators.required, Validators.minLength(2)],
+    city: ['', [Validators.required, Validators.minLength(2)]],
     temperature: [20, Validators.required],
     condition: ['', Validators.required],
     humidity: [50, Validators.required],
@@ -25,12 +29,30 @@ export class WeatherForm {
     description: [''],
   });
 
+  constructor() {
+    effect(() => {
+      const weatherId = this.id();
+      if (weatherId) {
+        const weather = this.weatherService.getWeatherById(Number(weatherId));
+        if (weather) {
+          this.weatherForm.patchValue(weather)
+        }
+      }
+    });
+  }
+
   protected onSubmit(): void {
     if (this.weatherForm.invalid) {
       return;
     }
     const newWeather = this.weatherForm.getRawValue();
-    this.weatherService.addWeather(newWeather);
+    if (this.isEditMode()) {
+      this.weatherService.updateWeather(newWeather);
+    }else {
+      this.weatherService.addWeather(newWeather);
+    }
+
     this.weatherForm.reset();
+    this.router.navigate(['/weather', newWeather.id])
   }
 }

@@ -21,4 +21,8 @@ export const routes: Routes = [
     path: 'add-weather',
     component: WeatherForm
   },
+  {
+    path: 'weather/update/:id',
+    component: WeatherForm
+  },
 ];
