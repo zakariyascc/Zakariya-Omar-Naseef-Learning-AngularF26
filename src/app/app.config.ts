@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { APP_CONFIG } from './shared/config/app-config';
 import { WeatherService } from './services/weather';
 import { MockWeatherService } from './services/mock-weather-service';
+import { APP_KEY } from './shared/config/app-key';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,8 +17,9 @@ export const appConfig: ApplicationConfig = {
     {
       provide: APP_CONFIG,
       useValue: {
-        apiBaseUrl: "https://api.example.com",
-        defaultCondition: 'Cloudy'
+        apiBaseUrl: "https://api.openweathermap.org/data/2.5",
+        //defaultCondition: 'Cloudy',
+        apiKey: APP_KEY,
       }
     }
   ]

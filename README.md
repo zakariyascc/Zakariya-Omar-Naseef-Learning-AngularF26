@@ -57,3 +57,11 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## OpenWeather Api 
+
+```bash
+API Name : OpenWeather 
+Documentation : https://openweathermap.org/current
+Example Request URL : https://api.openweathermap.org/data/2.5/weather?q=Windsor&units=metric&appid=APP_KEY
+```
