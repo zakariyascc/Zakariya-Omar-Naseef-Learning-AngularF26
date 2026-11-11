@@ -7,12 +7,17 @@ import { MockWeatherService } from './services/mock-weather-service';
 import { APP_KEY } from './shared/config/app-key';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { loadingInterceptor } from './interceptor/loading-interceptor';
+import { errorInterceptor } from './interceptor/error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([loadingInterceptor])),
+    provideHttpClient(withInterceptors([loadingInterceptor, errorInterceptor])),
+    /**
+     * loadingInterceptor need to run first to let user now the app is loading if delayed in data.
+     * when the request finish the loading will stop.
+     */
     {
       provide: WeatherService,
       useClass: WeatherService,

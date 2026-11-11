@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { GuardService } from './services/guard';
 import { LoadingService } from './services/loading-service';
+import { ErrorService } from './services/error-service';
 
 @Component({
   imports: [RouterOutlet, RouterLink],
@@ -18,4 +19,5 @@ export class App {
   }
 
   protected loadingService = inject(LoadingService);
+  protected errorService = inject(ErrorService);
 }

@@ -1,6 +1,12 @@
 <div>
   <h1>{{ title }}</h1>
   <nav class="nav-bar">
+    @if(errorService.errorMessage(); as erM){
+      <div>
+        <p>Error: {{ erM }}</p>
+        <button (click)="errorService.clearErrorMessage()">Clear</button>
+      </div>
+    }
     @if(loadingService.isLoading()){
       <div class="loading">
         <span>Loading....</span>
