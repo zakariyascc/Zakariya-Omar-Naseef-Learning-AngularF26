@@ -10,7 +10,7 @@
       <button (click)="addWeather()">Add Severe Weather Item</button>
     }
     <app-weather-list-item
-      [weather]="weather"
+      [weatherList]="weather"
       (opened)="onWeatherOpened($event)"
       (removeWeather)="removeWeather($event)">
     </app-weather-list-item>

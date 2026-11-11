@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
       provide: APP_CONFIG,
       useValue: {
         apiBaseUrl: "https://api.openweathermap.org/data/2.5",
-        //defaultCondition: 'Cloudy',
+        defaultCondition: 'Cloudy',
         apiKey: APP_KEY,
       }
     }

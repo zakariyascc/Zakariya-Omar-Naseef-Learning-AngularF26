@@ -44,7 +44,11 @@ export class WeatherForm {
       if (weatherId) {
         const weather = this.weatherService.getWeatherById(Number(weatherId));
         if (weather) {
-          this.weatherForm.patchValue(weather)
+          this.weatherForm.patchValue({
+            ...weather,
+            hasDescription: weather.hasDescription ?? false,
+            description: weather.description ?? ''
+          });
         }
       }
     });

@@ -1,32 +1,37 @@
 <div
-  [class.weather-card-whiteSmoke]= "Math.floor((weather().id - 1) / 2 ) % 2 === 0"
-  [class.weather-card-lightCyan] = "Math.floor((weather().id - 1)/ 2) % 2 !==0" >
-  @if (weather().condition == "Cloudy") {
+  [class.weather-card-whiteSmoke]= "Math.floor((weatherList().id - 1) / 2 ) % 2 === 0"
+  [class.weather-card-lightCyan] = "Math.floor((weatherList().id - 1)/ 2) % 2 !==0" >
+  @if (weatherList().condition == "Cloudy") {
     <img [ngSrc]="cloudyDayImage" alt="Cloudy Day" width="100" height="100">
-  } @else if (weather().condition == "Rainy"){
+  } @else if (weatherList().condition == "Rainy"){
     <img [ngSrc]="rainyDayImage" alt="Cloudy Day" width="100" height="100">
-  } @else if (weather().condition == "Sunny"){
+  } @else if (weatherList().condition == "Sunny"){
     <img [ngSrc]="sunnyDayImage" alt="Cloudy Day" width="100" height="100">
   }
-  <h2>{{weather().city}}</h2>
-  <p><strong>Temperature : </strong> {{weather().temperature}} C</p>
-  @switch (weather().condition){
+  <h2>{{weatherList().city}}</h2>
+  <p><strong>Temperature : </strong> {{weatherList().temperature}} C</p>
+  @switch (weatherList().condition){
     @case ('Sunny') {<p><strong>Condition : </strong> Sunny</p>}
-    @case ('Cloudy') {<p><strong>Condition : </strong> Cloudy</p>}
-    @case ('Rainy') {<p><strong>Condition : </strong> Rainy</p>}
+    @case ('Clouds') {<p><strong>Condition : </strong> Cloudy</p>}
+    @case ('Rain') {<p><strong>Condition : </strong> Rainy</p>}
+    @case ('Clear') {<p><strong>Condition : </strong> Clear</p>}
+    @case ('Thunderstorm') {<p><strong>Condition : </strong> Thunderstorm</p>}
+    @case ('Drizzle') {<p><strong>Condition : </strong> Drizzle</p>}
+    @case ('Snow') {<p><strong>Condition : </strong> Snow</p>}
+    @case ('Atmosphere') {<p><strong>Condition : </strong> Atmosphere</p>}
     @default {<p><strong>Condition : </strong> Other</p>}
   }
-  <p><strong>Humidity :</strong> {{weather().humidity}}% </p>
-  <p><strong>Wind Speed :</strong> {{weather().windSpeed}} Km/h </p>
-  @if (weather().description) {
+  <p><strong>Humidity :</strong> {{weatherList().humidity}}% </p>
+  <p><strong>Wind Speed :</strong> {{weatherList().windSpeed}} Km/h </p>
+  @if (weatherList().description) {
     <div (click)="toggle()"><strong>Has Description : yes</strong></div>
   } @else {
     <div><strong>Has Description : No</strong></div>
   }
   @if (expanded) {
-    <p>{{weather().description}}</p>
+    <p>{{weatherList().description}}</p>
   }
   <button type="button" (click)="remove()"> Remove </button>
-  <a [routerLink]="['/weather', weather().id]"> View Details </a>
-  <a [routerLink]="['/weather/update', weather().id]"> Update Weather</a>
+  <a [routerLink]="['/weather', weatherList().id]"> View Details </a>
+  <a [routerLink]="['/weather/update', weatherList().id]"> Update Weather</a>
 </div>

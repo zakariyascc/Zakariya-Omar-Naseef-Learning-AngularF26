@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './weather-list-item.html',
 })
 export class WeatherListItem {
-  weather = input.required<Weather>();
+  weatherList = input.required<Weather>();
 
   expanded = false;
 
@@ -18,7 +18,7 @@ export class WeatherListItem {
 
   toggle(): void {
     this.expanded = !this.expanded;
-    this.opened.emit(this.weather());
+    this.opened.emit(this.weatherList());
   }
   protected readonly Math = Math;
 
@@ -29,6 +29,6 @@ export class WeatherListItem {
   removeWeather = output<number>();
 
   remove(): void {
-    this.removeWeather.emit(this.weather().id);
+    this.removeWeather.emit(this.weatherList().id);
   }
 }

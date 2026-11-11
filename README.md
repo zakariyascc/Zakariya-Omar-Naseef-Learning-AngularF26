@@ -63,5 +63,9 @@ For more information on using the Angular CLI, including detailed command refere
 ```bash
 API Name : OpenWeather 
 Documentation : https://openweathermap.org/current
-Example Request URL : https://api.openweathermap.org/data/2.5/weather?q=Windsor&units=metric&appid=APP_KEY
+Example Request URL : 
+https://api.openweathermap.org/data/2.5/weather?q=Windsor&units=metric&appid=APP_KEY
+
+I use OpenWeather api to get current weather data. I used the HttpClient and 
+obserable to get jesson data and manupulate as i need to show data on the site. 
 ```

@@ -1,82 +1,148 @@
-import { computed, effect, inject, Injectable, Service, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import {Weather} from '../shared/models/weather';
 import { APP_CONFIG } from '../shared/config/app-config';
+import { APP_KEY} from '../shared/config/app-key';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
+  /**
+   * Inject Application configuration token.
+   * @private config
+   */
   private config = inject(APP_CONFIG);
 
-  apiBaseUrl = this.config.apiBaseUrl;
+  /**
+   *
+   * @private http
+   */
+  private http = inject(HttpClient);
 
-  private weathers =  signal<Weather[]>([
-    {
-      id: 1,
-      city: 'Windsor',
-      temperature: 22,
-      condition: 'Sunny',
-      humidity: 45,
-      windSpeed: 12,
-      hasDescription: true,
-      description: 'Clear and sunny weather.',
-    },
-    {
-      id: 2,
-      city: 'Toronto',
-      temperature: 18,
-      condition: 'Cloudy',
-      humidity: 60,
-      windSpeed: 15,
-      hasDescription: true,
-      description: 'Mostly cloudy throughout the day.',
-    },
-    {
-      id: 3,
-      city: 'London',
-      temperature: 16,
-      condition: 'Rainy',
-      humidity: 75,
-      windSpeed: 20,
-      hasDescription: false,
-    },
-    {
-      id: 4,
-      city: 'Ottawa',
-      temperature: 20,
-      condition: 'Sunny',
-      humidity: 50,
-      windSpeed: 10,
-      hasDescription: true,
-      description: 'Warm with clear skies.',
-    },
-    {
-      id: 5,
-      city: 'Montreal',
-      temperature: 14,
-      condition: 'Rainy',
-      humidity: 80,
-      windSpeed: 18,
-      hasDescription: true,
-      description: 'Light rain is expected.',
-    },
-    {
-      id: 6,
-      city: 'Vancouver',
-      temperature: 17,
-      condition: 'Cloudy',
-      humidity: 70,
-      windSpeed: 9,
-      hasDescription: false,
-    },
-  ]);
+  /**
+   * Base URL for API requests retrieved from the application configuration.
+   * @param apiBaseUrl
+   */
+  readonly apiBaseUrl = this.config.apiBaseUrl;
 
-  readonly weatherList = this.weathers;
+  /**
+   * Private signal containing list of weather data.
+   * @private weathers
+   */
+  private weathersFromApi = signal<Weather[]>([]);
 
-  readonly weatherCount = computed( () => this.weathers().length);
+  /**
+   * Public readonly weathers signal for external components.
+   * @param readonly weatherList
+   */
+  readonly weatherList = this.weathersFromApi;
 
-  selectedCondition = signal(this.config.defaultCondition);
+  /**
+   * Computed signal that returns the total count of weather items in the list.
+   * @param readonly weatherCount
+   */
+  readonly weatherCount = computed( () => this.weathersFromApi().length);
 
+  /**
+   * Signal tracking the currently active weather condition filter
+   * @param readonly selectedCondition
+   */
+  readonly selectedCondition = signal(this.config.defaultCondition);
 
+  /**
+   * Holds the loading state value
+   * @param readonly isLoading boolean false
+   */
+  readonly isLoading = signal<boolean>(false);
+
+  /**
+   * Holds the error messages
+   * @param readonly errorMessage string | null null
+   */
+  readonly errorMessage = signal<string | null>(null);
+
+  /**
+   * Service constructor that initializes an effect to log weather count changes
+   */
+  constructor() {
+    effect(() => {
+      console.log('WeatherService constructor current item count ' + this.weatherCount);
+    });
+    this.getWeather();
+  }
+
+  getWeather(){
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+    /**
+     * Test Data
+     * const testDataUrl = `${this.config.apiBaseUrl}/weather?q=Windsor,ON,CA&appid=${APP_KEY}&units=metric`;
+     *     const testData = this.http.get(testDataUrl).subscribe({
+     *       next: data => {
+     *         console.log('The Data:', data);
+     *       },
+     *       error: err => {
+     *         console.log('The Error :', err);
+     *       }
+     *     });
+     */
+
+    /**
+     * City name to show live data from api
+     * @param const city array
+     */
+    const city = [
+      'Windsor,ON,CA',
+      'Toronto,ON,CA',
+      'London,ON,CA',
+      'Ottawa,ON,CA',
+      'Montreal,ON,CA',
+      'Vancouver,ON,CA'
+    ];
+    city.forEach((city, index) => {
+
+      /**
+       * params object to send query parameters
+       * @param const params Object
+       */
+      const params = {
+        params: {
+          q: city,
+          appid: APP_KEY,
+          units: 'metric'
+        }
+      }
+      const url = `${this.apiBaseUrl}/weather`;
+      this.http.get<any>(url, params).subscribe({
+        next: (data) => {
+          const apiWeather: Weather = {
+            id: index + 1,
+            city: data.name,
+            temperature: Math.round(data.main.temp),
+            condition: data.weather[0].main,
+            humidity: data.main.humidity,
+            windSpeed: Math.round(data.wind.speed),
+            hasDescription: data.weather[0].description ? true : false,
+            description: data.weather[0].description ? data.weather[0].description : '',
+          };
+          this.weathersFromApi.update((list) => [...list, apiWeather]);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          console.error(`Failed to load nearby ${city} weather`, err);
+          this.errorMessage.set('Fail to load weather');
+          this.isLoading.set(false);
+        },
+      });
+    });
+  }
+
+  /**
+   * Computed signal that filters the weather list based on the selected condition
+   * @param condition String
+   * @return weathers
+   */
   readonly filterWeather = computed(() =>
     {
       const condition = this.selectedCondition();
@@ -91,24 +157,35 @@ export class WeatherService {
       return this.weatherList();
     });
 
+  /**
+   * Adds a new weather item to the reactive weather signal list
+   * @param newWeather
+   */
   addWeather(newWeather: Weather) {
-    this.weathers.update((list) => [...list, newWeather]);
+    this.weathersFromApi.update((list) => [...list, newWeather]);
   }
 
-  constructor() {
-    effect(() => {
-      console.log('WeatherService constructor current item count ' + this.weatherCount);
-    });
-  }
+  /**
+   * Removes a weather item from the list by its unique ID
+   * @param id
+   */
   removeWeather(id: number) {
-    this.weathers.update((list) => list.filter((item) => item.id !== id));
+    this.weathersFromApi.update((list) => list.filter((item) => item.id !== id));
   }
 
+  /**
+   * Finds and returns a specific weather item by its unique ID
+   * @param id
+   */
   getWeatherById(id: number): Weather | undefined {
     console.log('Weather Id : ', id);
-    return this.weathers().find((w) => w.id === id);
+    return this.weathersFromApi().find((w) => w.id === id);
   }
 
+  /**
+   * Updates an existing weather item in the list with new data
+   * @param updatedWeather
+   */
   updateWeather(updatedWeather: Weather): void{
     this.weatherList.update((item) => item.map((w)=> w.id === updatedWeather.id ? updatedWeather : w));
   }
