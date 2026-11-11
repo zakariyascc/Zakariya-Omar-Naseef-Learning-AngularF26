@@ -68,4 +68,6 @@ https://api.openweathermap.org/data/2.5/weather?q=Windsor&units=metric&appid=APP
 
 I use OpenWeather api to get current weather data. I used the HttpClient and 
 obserable to get jesson data and manupulate as i need to show data on the site. 
+
+Add, Edit, delete working. Its working because i am saving the weather data locally. 
 ```
