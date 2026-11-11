@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { GuardService } from './services/guard';
+import { LoadingService } from './services/loading-service';
 
 @Component({
   imports: [RouterOutlet, RouterLink],
@@ -15,4 +16,6 @@ export class App {
   protected toggleGuard(): void {
     this.guardService.toggleGuard();
   }
+
+  protected loadingService = inject(LoadingService);
 }

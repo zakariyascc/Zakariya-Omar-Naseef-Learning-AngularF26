@@ -1,6 +1,11 @@
 <div>
   <h1>{{ title }}</h1>
   <nav class="nav-bar">
+    @if(loadingService.isLoading()){
+      <div class="loading">
+        <span>Loading....</span>
+      </div>
+    }
     <a routerLink="/weather" >All Weather</a>
     <a routerLink="/add-weather">Add Weather</a>
     <button type="button" (click)="toggleGuard()" >
