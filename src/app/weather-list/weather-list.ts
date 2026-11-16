@@ -4,22 +4,22 @@ import { WeatherListItem } from '../weather-list-item/weather-list-item';
 import { inject } from '@angular/core';
 import { WeatherService } from '../services/weather';
 import { APP_CONFIG } from '../shared/config/app-config';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
-  imports: [WeatherListItem],
+  imports: [WeatherListItem, DecimalPipe],
   selector: 'app-weather-list',
   styleUrl: './weather-list.scss',
   templateUrl: './weather-list.html',
 })
 export class WeatherList {
-
   private weatherService = inject(WeatherService);
 
   config = inject(APP_CONFIG);
 
   protected weatherList = this.weatherService.weatherList;
 
-  protected filteredWeathers = this.weatherService.filterWeather ;
+  protected filteredWeathers = this.weatherService.filterWeather;
 
   onWeatherOpened(weather: Weather): void {
     console.warn('Opened: ', weather.description);

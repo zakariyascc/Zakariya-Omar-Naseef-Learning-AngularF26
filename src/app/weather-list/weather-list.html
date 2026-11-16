@@ -6,7 +6,7 @@
     let first = $first;
     ) {
     @if (first) {
-      <h3> {{count}} Weather item Showing</h3>
+      <h3> {{count | number: '1.0-0'}} Weather item Showing</h3>
       <button (click)="addWeather()">Add Severe Weather Item</button>
     }
     <app-weather-list-item
