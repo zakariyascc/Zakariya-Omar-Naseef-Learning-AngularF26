@@ -10,8 +10,10 @@
   }
   <h2>{{weatherList().city | titlecase}}</h2>
   <p><strong>Temperature : </strong> {{weatherList().temperature | number: '1.0-1'}} C</p>
+  <p><strong>Condition : </strong> {{weatherList().condition | condition | uppercase}}</p>
+  <!--
   @switch (weatherList().condition){
-    @case ('Sunny') {<p><strong>Condition : </strong> Sunny</p>}
+    @case ('Sunny') {<p><strong>Condition : </strong> {{weatherList().condition | condition}}</p>}
     @case ('Clouds') {<p><strong>Condition : </strong> Cloudy</p>}
     @case ('Rain') {<p><strong>Condition : </strong> Rainy</p>}
     @case ('Clear') {<p><strong>Condition : </strong> Clear</p>}
@@ -21,8 +23,9 @@
     @case ('Atmosphere') {<p><strong>Condition : </strong> Atmosphere</p>}
     @default {<p><strong>Condition : </strong> Other</p>}
   }
+  -->
   <p><strong>Humidity :</strong> {{weatherList().humidity}}% </p>
-  <p><strong>Wind Speed :</strong> {{weatherList().windSpeed}} Km/h </p>
+  <p><strong>Wind Speed :</strong> {{weatherList().windSpeed | windSpeed:'Km/h'}}</p>
   @if (weatherList().description) {
     <div (click)="toggle()"><strong>Has Description : yes</strong></div>
   } @else {

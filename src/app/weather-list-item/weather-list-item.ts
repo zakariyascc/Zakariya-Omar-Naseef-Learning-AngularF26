@@ -1,10 +1,21 @@
 import { Component, input, output } from '@angular/core';
 import { Weather } from '../shared/models/weather';
-import { DecimalPipe, NgOptimizedImage, SlicePipe, TitleCasePipe } from '@angular/common';
+import { DecimalPipe, NgOptimizedImage, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ConditionPipe } from '../pipes/condition-pipe';
+import { WindSpeedPipe } from '../pipes/wind-speed-pipe';
 
 @Component({
-  imports: [NgOptimizedImage, RouterLink, TitleCasePipe, DecimalPipe, SlicePipe],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    TitleCasePipe,
+    DecimalPipe,
+    SlicePipe,
+    ConditionPipe,
+    WindSpeedPipe,
+    UpperCasePipe,
+  ],
   selector: 'app-weather-list-item',
   styleUrl: './weather-list-item.scss',
   templateUrl: './weather-list-item.html',
