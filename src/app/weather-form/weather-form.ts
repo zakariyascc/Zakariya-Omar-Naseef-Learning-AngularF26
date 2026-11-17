@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { afterNextRender, Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -19,6 +19,7 @@ export class WeatherForm {
   private formBuilder = inject(FormBuilder);
   private weatherService = inject(WeatherService);
   private router = inject(Router);
+  private firstField = viewChild<ElementRef<HTMLInputElement>>('firstField');
 
   id = input<string>();
 
@@ -39,6 +40,10 @@ export class WeatherForm {
     });
 
   constructor() {
+    // This wait till the form input exist in the dome.
+    afterNextRender(() => {
+      this.firstField()?.nativeElement.focus();
+    });
     effect(() => {
       const weatherId = this.id();
       if (weatherId) {

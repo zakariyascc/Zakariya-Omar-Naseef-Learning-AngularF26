@@ -8,7 +8,7 @@
     <form [formGroup]="weatherForm" (ngSubmit)="onSubmit()">
       <div>
         <label for="city">City: </label>
-        <input type="text" name="city" id="city" formControlName="city" placeholder="City Name">
+        <input #firstField type="text" name="city" id="city" formControlName="city" placeholder="City Name">
         @if (weatherForm.controls.city.touched) {
           @if (weatherForm.controls.city.hasError('required')) {
             <p class="error"> City Name is required </p>
