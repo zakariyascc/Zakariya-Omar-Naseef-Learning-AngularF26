@@ -77,3 +77,9 @@ initital total before shows 338.72kB and application build generation completed 
 <img height="200" src="../images/After.png" width="300"/>
 Initial total after shows 290.69Kb and the applicaton build generation completed 3.806 second.
 ````
+```bash
+Lifecycle
+1. When i try to use the this.id() in the constructor i get an error message becasue the id is not there.
+2. It shows anguler destroy a component if it is moving to anoter component.
+
+```
