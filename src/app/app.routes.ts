@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { WeatherList } from './weather-list/weather-list';
-import { WeatherDetail } from './weather-detail/weather-detail';
-import { WeatherForm } from './weather-form/weather-form';
 import { editGuard } from './edit-guard';
 
 export const routes: Routes = [
@@ -16,16 +14,19 @@ export const routes: Routes = [
   },
   {
     path: 'weather/update/:id',
-    component: WeatherForm,
+    loadComponent: () => import('./weather-form/weather-form').then(m => m.WeatherForm),
     canActivate: [editGuard]
   },
   {
     path: 'weather/:id',
-    component: WeatherDetail
+    loadComponent: () => import('./weather-detail/weather-detail').then(m => m.WeatherDetail),
   },
   {
     path: 'add-weather',
-    component: WeatherForm
+    loadComponent: () => import('./weather-form/weather-form').then(m => m.WeatherForm),
   },
-
+  {
+    path: '**',
+    loadComponent: () => import('./page-not-found/page-not-found').then(m => m.PageNotFound),
+  },
 ];

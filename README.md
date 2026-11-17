@@ -71,3 +71,9 @@ obserable to get jesson data and manupulate as i need to show data on the site.
 
 Add, Edit, delete working. Its working because i am saving the weather data locally. 
 ```
+```bash
+<img height="200" src="../images/Before.png" width="300"/>
+initital total before shows 338.72kB and application build generation completed 4.463 second.
+<img height="200" src="../images/After.png" width="300"/>
+Initial total after shows 290.69Kb and the applicaton build generation completed 3.806 second.
+````

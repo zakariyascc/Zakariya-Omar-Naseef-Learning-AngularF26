@@ -1,0 +1,17 @@
+.card {
+  border-radius: 15px;
+}
+
+h1 {
+  font-size: 120px;
+}
+
+.btn {
+  padding: 10px 25px;
+  border-radius: 8px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  transition: 0.2s ease;
+}
