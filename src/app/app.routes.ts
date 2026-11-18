@@ -13,17 +13,13 @@ export const routes: Routes = [
     component: WeatherList
   },
   {
-    path: 'weather/update/:id',
-    loadComponent: () => import('./weather-form/weather-form').then(m => m.WeatherForm),
-    canActivate: [editGuard]
+    path: '',
+    //loadComponent: () => import('./weather-form/weather-form').then(m => m.WeatherForm),
+    loadChildren: () => import('./addEdit.routes').then(m =>m.default)
   },
   {
     path: 'weather/:id',
     loadComponent: () => import('./weather-detail/weather-detail').then(m => m.WeatherDetail),
-  },
-  {
-    path: 'add-weather',
-    loadComponent: () => import('./weather-form/weather-form').then(m => m.WeatherForm),
   },
   {
     path: '**',
